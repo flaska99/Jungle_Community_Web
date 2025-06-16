@@ -1,18 +1,24 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
-
+import { IsNotEmpty, Length } from "class-validator";
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
     id : number;
 
-    @Column({ unique : true, length: 13  })
-    user_id : string;
-
-    @Column()
-    password: string;
-
-    @Column()
-    jungleGrade : string;
+    @IsNotEmpty()
+    @Length(2, 5)
+    user_name : string;
 
     
+    @IsNotEmpty()
+    jungleGrade : string;
+
+    @IsNotEmpty()
+    @Column({ unique: true })
+    @Length(4, 15)
+    user_id: string;
+
+    @IsNotEmpty()
+    password: string;
+
 }
