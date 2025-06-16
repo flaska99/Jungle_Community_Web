@@ -46,7 +46,7 @@ export class PostService {
     async findOne(id : string) : Promise<Post> {
         const post = await this.postRepository.findOne({
             where : { id },
-            relations : ['author', 'category', 'comments'],
+            relations : ['author', 'category', 'comment'],
         });
 
         if (!post) throw new NotFoundException('Post not found');
@@ -92,7 +92,7 @@ export class PostService {
 
     async findMainFeed(page : number, limit : number){
         const [data, total] = await this.postRepository.findAndCount({
-            relations : ['author', 'category', 'comments'],
+            relations : ['author', 'category', 'comment'],
             order : { id : 'DESC'},
             take : limit,
             skip : (page - 1) * limit,
@@ -117,7 +117,7 @@ export class PostService {
 
     const [data, total] = await this.postRepository.findAndCount({
         where: { category: { id: category.id } },
-        relations: ['author', 'category', 'comments'],
+        relations: ['author', 'category', 'comment'],
         order: { id: 'DESC' },
         take: limit,
         skip: (page - 1) * limit,

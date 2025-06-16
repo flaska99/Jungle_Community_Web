@@ -21,9 +21,9 @@ export class PostController {
         @Query('limit') limit : string
     ){
         const pageNum = Math.max(1, parseInt(page) || 1);
-        const limitNuM = 10;
+        const limitNum = 10;
 
-        return this.postService.findMainFeed(pageNum, limitNuM);
+        return this.postService.findMainFeed(pageNum, limitNum);
     }
 
     @UseGuards(JwtAuthGuard)
@@ -34,9 +34,9 @@ export class PostController {
         @Query('limit') limit : string
     ) {
         const pageNum = Math.max(1, parseInt(page) || 1);
-        const limitNuM = 10;
+        const limitNum = 10;
 
-        return this.postService.findByCategory(category, pageNum, limitNuM);
+        return this.postService.findByCategory(category, pageNum, limitNum);
     }
 
     @UseGuards(JwtAuthGuard)
