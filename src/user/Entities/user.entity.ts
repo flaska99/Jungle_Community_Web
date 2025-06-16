@@ -6,10 +6,10 @@ export class User {
     id : number;
 
     @IsNotEmpty()
+    @Column()
     @Length(2, 5)
     user_name : string;
 
-    
     @IsNotEmpty()
     jungleGrade : string;
 
@@ -19,6 +19,7 @@ export class User {
     user_id: string;
 
     @IsNotEmpty()
+    @Column()
     password: string;
 
 }
