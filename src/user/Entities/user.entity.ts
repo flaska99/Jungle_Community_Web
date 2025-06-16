@@ -11,6 +11,7 @@ export class User {
     user_name : string;
 
     @IsNotEmpty()
+    @Column()
     jungleGrade : string;
 
     @IsNotEmpty()
