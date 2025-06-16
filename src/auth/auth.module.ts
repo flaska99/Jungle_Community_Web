@@ -10,7 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TypeOrmModule.forFeature([User]),
     JwtModule.register({
       secret : process.env.JWT_SECRET, // jwt 키 받아오기
-      signOptions : {expiresIn: 'id'},
+      signOptions : {expiresIn: '1d'},
     }),
   ],
   providers: [AuthService],
