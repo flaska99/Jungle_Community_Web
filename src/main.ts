@@ -9,7 +9,7 @@ async function bootstrap() {
 
     // CORS 허용
   app.enableCors({
-    origin: ['http://localhost:5176'],
+    origin: true,
     credentials: true,  // 혹시 쿠키 인증 등 쓰면 필요
   });
 
