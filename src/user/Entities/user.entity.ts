@@ -1,9 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { IsNotEmpty, Length } from "class-validator";
+import { Post } from "src/post/Entities/post.entity";
+import { Comment } from "src/comment/Entities/comment.entity";
+
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn()
-    id : number;
+    @PrimaryGeneratedColumn({ type: 'bigint' })
+    id : string;
 
     @IsNotEmpty()
     @Column()
@@ -23,4 +26,9 @@ export class User {
     @Column()
     password: string;
 
+    @OneToMany(() => Post, (post) => post.author)
+    posts: Post[];
+
+    @OneToMany(() => Comment, (comment) => comment.author)
+    comments: Comment[];
 }
