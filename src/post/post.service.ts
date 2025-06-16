@@ -39,14 +39,14 @@ export class PostService {
 
     async findAll() : Promise<Post[]> {
         return this.postRepository.find({
-            relations : ['user', 'category', 'comment']
+            relations : ['author', 'category', 'comment']
         });
     }
 
     async findOne(id : string) : Promise<Post> {
         const post = await this.postRepository.findOne({
             where : { id },
-            relations : ['user', 'category', 'comments'],
+            relations : ['author', 'category', 'comments'],
         });
 
         if (!post) throw new NotFoundException('Post not found');
@@ -61,7 +61,7 @@ export class PostService {
         
         const post = await this.postRepository.findOne({
             where : { id },
-            relations : ['user'],
+            relations : ['author'],
         });
 
         if (!post) throw new NotFoundException('Post not found');
@@ -80,7 +80,7 @@ export class PostService {
 
         const post = await this.postRepository.findOne ({
             where : { id },
-            relations : [ 'user' ],
+            relations : [ 'author' ],
         });
 
         if(!post) throw new NotFoundException('Post not found');
