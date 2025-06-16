@@ -6,10 +6,12 @@ import { User } from 'src/user/Entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports : [
     TypeOrmModule.forFeature([User]),
+    UserModule,
     PassportModule,
     JwtModule.register({
       secret : process.env.JWT_SECRET, // jwt 키 받아오기
@@ -17,6 +19,7 @@ import { PassportModule } from '@nestjs/passport';
     }),
   ],
   providers: [AuthService, JwtStrategy],
+  exports : [AuthService],
   controllers: [AuthController]
 })
 export class AuthModule {}
