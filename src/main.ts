@@ -7,6 +7,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
 
+    // CORS 허용
+  app.enableCors({
+    origin: ['http://localhost:5176'],
+    credentials: true,  // 혹시 쿠키 인증 등 쓰면 필요
+  });
+
   // swagger 설정
   const config = new DocumentBuilder()
         .setTitle('정글 커뮤니티 API')
