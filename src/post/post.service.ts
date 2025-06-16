@@ -89,4 +89,49 @@ export class PostService {
         }
         await this.postRepository.remove(post);
     }
+
+    async findMainFeed(page : number, limit : number){
+        const [data, total] = await this.postRepository.findAndCount({
+            relations : ['author', 'category', 'comments'],
+            order : { id : 'DESC'},
+            take : limit,
+            skip : (page - 1) * limit,
+        });
+
+        const totalPages = Math.ceil(total / limit);
+
+        return {
+            data,
+            total,
+            page,
+            limit,
+            totalPages
+        };
+    }
+
+    async findByCategory(name: string, page: number, limit: number) {
+    const category = await this.categoryRepository.findOne({ where: { name } });
+    if (!category) {
+        throw new NotFoundException('Category not found');
+    }
+
+    const [data, total] = await this.postRepository.findAndCount({
+        where: { category: { id: category.id } },
+        relations: ['author', 'category', 'comments'],
+        order: { id: 'DESC' },
+        take: limit,
+        skip: (page - 1) * limit,
+    });
+
+    const totalPages = Math.ceil(total / limit);
+
+    return {
+        data,
+        total,
+        page,
+        limit,
+        totalPages
+    };
+}
+
 }
