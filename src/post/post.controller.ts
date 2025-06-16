@@ -4,12 +4,12 @@ import { CreatePostDto } from './Dto/create-post.dto';
 import { UpdatePostDto } from './Dto/update-post.dto';
 import { JwtAuthGuard } from 'src/auth/strategy/jwt.authGuard';
 
-@Controller()
+@Controller('post')
 export class PostController {
     constructor(private readonly postService : PostService) {}
 
     @UseGuards(JwtAuthGuard)
-    @HttpPost('post')
+    @HttpPost('post-create')
     create (@Body() createPostDto : CreatePostDto, @Request() req){
         return this.postService.create(createPostDto, req.user.sub);
     }
