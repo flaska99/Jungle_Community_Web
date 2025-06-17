@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { IsNotEmpty, Length } from "class-validator";
 import { Post } from "src/post/Entities/post.entity";
 import { Comment } from "src/comment/Entities/comment.entity";
+import { PostView } from "src/post-view/entities/post-view.entity";
 
 @Entity()
 export class User {
@@ -31,4 +32,7 @@ export class User {
 
     @OneToMany(() => Comment, (comment) => comment.author)
     comments: Comment[];
+
+    @OneToMany(() => PostView, (postView) => postView.user)
+    postViews: PostView[];
 }

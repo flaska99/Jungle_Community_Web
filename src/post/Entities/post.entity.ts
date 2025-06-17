@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, Up
 import { User } from "src/user/Entities/user.entity";
 import { Category } from "src/category/Entities/category.entity";
 import { Comment } from "src/comment/Entities/comment.entity";
+import { PostView } from "src/post-view/entities/post-view.entity";
 
 @Entity()
 export class Post{
@@ -29,6 +30,9 @@ export class Post{
     @UpdateDateColumn()
     updateAt : Date;
 
-    @Column({ default: 0 })
+    @OneToMany(() => PostView, (postView) => postView.post)
+    postViews: PostView[];
+
+    @Column({ default: 0 }) 
     views: number;
 }
