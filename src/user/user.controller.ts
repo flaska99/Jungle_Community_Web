@@ -1,8 +1,9 @@
-import { Controller, Post, Body, Get, UseGuards, Request } from '@nestjs/common';
+import { Controller, Post as HttpPost, Body, Get, UseGuards, Request } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './Entities/user.entity';
 import { JwtAuthGuard } from 'src/auth/strategy/jwt.authGuard';
+import { Post } from 'src/post/Entities/post.entity';
 
 @Controller('users')
 export class UserController {
@@ -10,7 +11,7 @@ export class UserController {
     private readonly userService: UserService,
   ) {}
 
-  @Post('signup')
+  @HttpPost('signup')
   async create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.userService.create(createUserDto);
   }
@@ -18,6 +19,12 @@ export class UserController {
   @Get('userinfo')
   @UseGuards(JwtAuthGuard)
   async getUserInfo(@Request() req) : Promise<number> {
-    return this.userService.findMyPost(req.user.sub);
+    return this.userService.countMyPost(req.user.sub);
+  }
+
+  @Get('mypage')
+  @UseGuards(JwtAuthGuard)
+  async getMyPage(@Body() req){
+    return this.userService.countMyPost(req.user.sub);
   }
 }
