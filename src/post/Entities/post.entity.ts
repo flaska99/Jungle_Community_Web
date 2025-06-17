@@ -28,4 +28,7 @@ export class Post{
 
     @UpdateDateColumn()
     updateAt : Date;
+
+    @Column({ default: 0 })
+    views: number;
 }
