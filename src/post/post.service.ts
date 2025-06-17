@@ -92,7 +92,7 @@ export class PostService {
 
     async findMainFeed(page : number, limit : number){
         const [data, total] = await this.postRepository.findAndCount({
-            relations : ['author', 'category', 'comment'],
+            relations : ['author', 'category', 'comments'],
             order : { id : 'DESC'},
             take : limit,
             skip : (page - 1) * limit,
