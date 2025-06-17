@@ -9,7 +9,6 @@ export class PostViewController {
   @UseGuards(JwtAuthGuard)
   @Patch(':postId/view')
   async increaseView(@Param('postId') postId : string, @Request() req){
-    const user_id = req.user.sub;
-    return this.postViewService.increaseView(user_id, postId);
+    return this.postViewService.increaseView(req.user.sub, postId);
   }
 }
