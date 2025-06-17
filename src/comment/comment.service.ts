@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Comment } from './Entities/comment.entity';
 import { Repository } from 'typeorm';
@@ -42,5 +42,22 @@ export class CommentService {
         );
 
         return this.commentRepository.save(comment);
+    }
+
+    async remove (id : string, user_id : string) : Promise<void> { 
+        const user = await this.userRepository.findOne( { where : { id : user_id } } );
+        if(!user) throw new UnauthorizedException("세션만료 or 존재하지 않는 유저");
+
+        const comment = await this.commentRepository.findOne({
+            where : { id },
+            relations : [ 'author' ],
+        });
+        if(!comment) throw new UnauthorizedException("comment not found !");
+
+        if(comment.author.id !== user.id){
+            throw new ForbiddenException("유저에 해당하는 댓글이 아닙니다.");
+        }
+        
+        await this.commentRepository.remove(comment);
     }
 }
