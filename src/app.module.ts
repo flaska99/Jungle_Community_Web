@@ -7,6 +7,7 @@ import { PostController } from './post/post.controller';
 import { PostModule } from './post/post.module';
 import { CategoryModule } from './category/category.module';
 import { CommentModule } from './comment/comment.module';
+import { PostViewModule } from './post-view/post-view.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { CommentModule } from './comment/comment.module';
     PostModule,
     CategoryModule,
     CommentModule,
+    PostViewModule,
   ],
 })
 export class AppModule {}
