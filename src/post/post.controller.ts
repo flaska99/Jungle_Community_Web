@@ -48,12 +48,12 @@ export class PostController {
     @UseGuards(JwtAuthGuard)
     @Patch(':id')
     update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto, @Request() req) {
-    return this.postService.update(id, updatePostDto, req.user.userId);
+        return this.postService.update(id, updatePostDto, req.user.userId);
     }
 
     @UseGuards(JwtAuthGuard)
     @Delete(':id')
     remove(@Param('id') id: string, @Request() req) {
-    return this.postService.remove(id, req.user.userId);
+        return this.postService.remove(id, req.user.userId);
     }
 }
