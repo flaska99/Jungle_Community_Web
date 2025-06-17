@@ -14,7 +14,7 @@ import { UserModule } from 'src/user/user.module';
     UserModule,
     PassportModule,
     JwtModule.register({
-      secret : "jojoungseungmin", // jwt 키 받아오기
+      secret : process.env.JWT_SECRET, // jwt 키 받아오기
       signOptions : {expiresIn: '1d'},
     }),
   ],
