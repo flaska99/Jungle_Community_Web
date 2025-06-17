@@ -10,9 +10,11 @@ import { PostViewModule } from './post-view/post-view.module';
 import { NotificationGateway } from './notification/notification.gateway';
 import { NotificationService } from './notification/notification.service';
 import { NotificationModule } from './notification/notification.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
