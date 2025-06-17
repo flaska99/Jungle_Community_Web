@@ -32,7 +32,4 @@ export class User {
 
     @OneToMany(() => Comment, (comment) => comment.author)
     comments: Comment[];
-
-    @OneToMany(() => PostView, (postView) => postView.user)
-    postViews: PostView[];
 }

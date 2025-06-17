@@ -30,9 +30,6 @@ export class Post{
     @UpdateDateColumn()
     updateAt : Date;
 
-    @OneToMany(() => PostView, (postView) => postView.post)
-    postViews: PostView[];
-
     @Column({ default: 0 }) 
     views: number;
 }
