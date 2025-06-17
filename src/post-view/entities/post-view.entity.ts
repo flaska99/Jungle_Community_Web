@@ -16,7 +16,4 @@ export class PostView {
 
     @CreateDateColumn()
     createAt : Date;
-
-    @Column({ default: 0 })
-    views: number;
 }
