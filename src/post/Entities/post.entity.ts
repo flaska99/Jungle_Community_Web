@@ -21,7 +21,7 @@ export class Post{
     category: Category;
 
     @OneToMany(() => Comment, (comment) => comment.post, { cascade : true})
-    comment : Comment[];
+    comments : Comment[];
     
     @CreateDateColumn()
     createdAt : Date;
