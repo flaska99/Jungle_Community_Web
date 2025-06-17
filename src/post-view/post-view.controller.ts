@@ -9,7 +9,6 @@ export class PostViewController {
   @UseGuards(JwtAuthGuard)
   @Patch(':postId/view')
   async increaseView(@Param('postId') postId : string, @Request() req){
-    console.log(`유저 ${req.sub}가 소켓에 연결됨`);
-    return this.postViewService.increaseView(req.sub, postId);
+    return this.postViewService.increaseView(req.user.userId, postId);
   }
 }

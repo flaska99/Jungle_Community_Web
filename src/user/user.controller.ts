@@ -19,12 +19,12 @@ export class UserController {
   @Get('userinfo')
   @UseGuards(JwtAuthGuard)
   async getUserInfo(@Request() req) : Promise<number> {
-    return this.userService.countMyPost(req.user.sub);
+    return this.userService.countMyPost(req.user.userId);
   }
 
   @Get('mypage')
   @UseGuards(JwtAuthGuard)
   async getMyPage(@Request() req){
-    return this.userService.findMyPost(req.user.sub);
+    return this.userService.findMyPost(req.user.userId);
   }
 }

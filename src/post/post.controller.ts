@@ -11,7 +11,7 @@ export class PostController {
     @UseGuards(JwtAuthGuard)
     @HttpPost('post-create')
     create (@Body() createPostDto : CreatePostDto, @Request() req){
-        return this.postService.create(createPostDto, req.user.sub);
+        return this.postService.create(createPostDto, req.user.userId);
     }
 
     @UseGuards(JwtAuthGuard)
@@ -48,12 +48,12 @@ export class PostController {
     @UseGuards(JwtAuthGuard)
     @Patch(':id')
     update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto, @Request() req) {
-    return this.postService.update(id, updatePostDto, req.user.sub);
+    return this.postService.update(id, updatePostDto, req.user.userId);
     }
 
     @UseGuards(JwtAuthGuard)
     @Delete(':id')
     remove(@Param('id') id: string, @Request() req) {
-    return this.postService.remove(id, req.user.sub);
+    return this.postService.remove(id, req.user.userId);
     }
 }
