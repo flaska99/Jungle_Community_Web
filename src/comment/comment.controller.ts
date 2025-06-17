@@ -11,11 +11,10 @@ export class CommentController {
     @HttpPost('create') 
     async create(
         @Body() createCommentDto : CreateCommentDto,
-        @Query('pageId') page : string,
         @Request() req
     ) 
     {
-        return this.commentService.create(createCommentDto, page, req.usr.sub);
+        return this.commentService.create(createCommentDto, req.usr.sub);
     }
 
 }

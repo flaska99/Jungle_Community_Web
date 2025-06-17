@@ -6,4 +6,8 @@ export class CreateCommentDto {
     @IsString()
     @ApiProperty({ description: '댓글 내용'})
     content : string;
+
+    @IsNotEmpty()
+    @ApiProperty({ description : 'postId'})
+    postId : string;
 }
