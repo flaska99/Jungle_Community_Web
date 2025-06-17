@@ -24,7 +24,7 @@ export class UserController {
 
   @Get('mypage')
   @UseGuards(JwtAuthGuard)
-  async getMyPage(@Body() req){
+  async getMyPage(@Request() req){
     return this.userService.countMyPost(req.user.sub);
   }
 }
