@@ -3,11 +3,13 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { PostController } from './post/post.controller';
 import { PostModule } from './post/post.module';
 import { CategoryModule } from './category/category.module';
 import { CommentModule } from './comment/comment.module';
 import { PostViewModule } from './post-view/post-view.module';
+import { NotificationGateway } from './notification/notification.gateway';
+import { NotificationService } from './notification/notification.service';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { PostViewModule } from './post-view/post-view.module';
     CategoryModule,
     CommentModule,
     PostViewModule,
+    NotificationModule,
   ],
+  providers: [NotificationGateway, NotificationService],
 })
 export class AppModule {}

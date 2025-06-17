@@ -32,6 +32,13 @@ export class PostViewService {
             await this.postViewRepository.save(view);
 
             await this.postRepository.increment({ id: postId }, 'views', 1);
+            return {
+                message : "true"
+            };
         }
+
+        return {
+            message : "false"
+        };
     }
 }
