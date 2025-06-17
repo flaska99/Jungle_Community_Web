@@ -14,7 +14,7 @@ export class CommentController {
         @Request() req
     ) 
     {
-        return this.commentService.create(createCommentDto, req.usr.sub);
+        return this.commentService.create(createCommentDto, req.user.sub);
     }
 
 }
