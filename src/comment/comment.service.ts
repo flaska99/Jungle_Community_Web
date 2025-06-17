@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { User } from 'src/user/Entities/user.entity';
 import { Post } from 'src/post/Entities/post.entity';
 import { CreateCommentDto } from './dto/create-comment.dto';
+import { NotificationService } from 'src/notification/notification.service';
 
 @Injectable()
 export class CommentService {
@@ -14,7 +15,8 @@ export class CommentService {
         @InjectRepository(User)
         private userRepository : Repository<Comment>,
         @InjectRepository(Post)
-        private postRepository : Repository<Post>
+        private postRepository : Repository<Post>,
+        private readonly notificationService : NotificationService,
     ) {}
 
     async create(createCommentDto : CreateCommentDto,
@@ -31,6 +33,13 @@ export class CommentService {
             author : user,
             post : post
         });
+
+        const postAuthorId = post.author.id;
+
+        await this.notificationService.notify(
+            postAuthorId,
+            `${user.author.user_name} 님이 댓글을 남겼습니다 !`
+        );
 
         return this.commentRepository.save(comment);
     }
