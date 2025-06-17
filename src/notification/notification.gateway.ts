@@ -12,8 +12,6 @@ export class NotificationGateway implements OnGatewayConnection, OnGatewayDiscon
   @WebSocketServer()
   server : Server;
 
-  constructor(private readonly notificationService : NotificationService){}
-
   private readonly JWT_SECRET = process.env.JWT_SECRET ?? 'defaultSecretKey';
 
 
