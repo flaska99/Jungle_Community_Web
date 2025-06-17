@@ -30,7 +30,7 @@ export class UserService {
         }
     }
 
-    async findMyPost(user_id : string) : Promise<number> {
+    async countMyPost(user_id : string) : Promise<number> {
         const count = this.postRepository.count({
             where : { author : { id : user_id }}
         });
@@ -38,5 +38,17 @@ export class UserService {
         return count;
     }
 
-}
+    async findMyPost(user_id : string) {
+
+        const data = await this.postRepository.find({
+            where : { author : { id : user_id } },
+            relations : ['author', 'category', 'comments'],
+            order : { id : 'DESC'},
+        });
+
+        return { data };
+    }
+ }
+
+
 
