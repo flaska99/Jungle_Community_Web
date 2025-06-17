@@ -34,6 +34,6 @@ import { NotificationModule } from './notification/notification.module';
     PostViewModule,
     NotificationModule,
   ],
-  providers: [NotificationGateway, NotificationService],
+  providers: [],
 })
 export class AppModule {}
