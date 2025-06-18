@@ -38,17 +38,25 @@ export class CommentService {
             post : post
         });
 
-        this.commentRepository.save(comment)
+        const re = this.commentRepository.save(comment)
         const postAuthorId = post.author.id;
+
+        const post_new = await this.postRepository.findOne({ 
+            where : { id : createCommentDto.postId }, 
+            relations: ['author'] 
+        });
+        if(!post_new) throw new NotFoundException("페이지를 찾을 수 없습니다.");
 
         if(post.author.id !== user.id){
             await this.notificationService.notify(
                 postAuthorId,
                 post,
-                comment,
+                post_new.comments,
                 `${user.user_name} 님이 댓글을 남겼습니다 !`
             );
         }
+
+        return re;
     }
 
     async remove (id : string, user_id : string) : Promise<void> { 

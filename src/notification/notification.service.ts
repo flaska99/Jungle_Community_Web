@@ -7,7 +7,7 @@ import { Comment } from 'src/comment/Entities/comment.entity';
 export class NotificationService {
     constructor(private readonly notificationGateway : NotificationGateway){}
 
-    notify(userId: string, post : Post, comment : Comment, message: string){
-        this.notificationGateway.sendNotification(userId, post, comment, message);
+    notify(userId: string, post : Post, comments : Comment[], message: string){
+        this.notificationGateway.sendNotification(userId, comments, post, message);
     }
 }
