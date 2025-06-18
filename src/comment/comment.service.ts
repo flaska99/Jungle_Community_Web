@@ -50,7 +50,7 @@ export class CommentService {
         if(post.author.id !== user.id){
             await this.notificationService.notify(
                 postAuthorId,
-                post_new
+                post_new,
                 `${user.user_name} 님이 댓글을 남겼습니다 !`
             );
         }
