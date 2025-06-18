@@ -45,6 +45,7 @@ export class CommentService {
             await this.notificationService.notify(
                 postAuthorId,
                 post,
+                comment,
                 `${user.user_name} 님이 댓글을 남겼습니다 !`
             );
         }
