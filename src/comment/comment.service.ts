@@ -13,7 +13,7 @@ export class CommentService {
         @InjectRepository(Comment)
         private commentRepository : Repository<Comment>,
         @InjectRepository(User)
-        private userRepository : Repository<Comment>,
+        private userRepository : Repository<User>,
         @InjectRepository(Post)
         private postRepository : Repository<Post>,
         private readonly notificationService : NotificationService,
@@ -38,7 +38,7 @@ export class CommentService {
 
         await this.notificationService.notify(
             postAuthorId,
-            `${user.author.user_name} 님이 댓글을 남겼습니다 !`
+            `${user.user_name} 님이 댓글을 남겼습니다 !`
         );
 
         return this.commentRepository.save(comment);
