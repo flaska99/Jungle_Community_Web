@@ -38,6 +38,7 @@ export class CommentService {
             post : post
         });
 
+        this.commentRepository.save(comment)
         const postAuthorId = post.author.id;
 
         if(post.author.id !== user.id){
@@ -47,8 +48,6 @@ export class CommentService {
                 `${user.user_name} 님이 댓글을 남겼습니다 !`
             );
         }
-
-        return this.commentRepository.save(comment);
     }
 
     async remove (id : string, user_id : string) : Promise<void> { 
@@ -59,6 +58,7 @@ export class CommentService {
             where : { id },
             relations : [ 'author' ],
         });
+
         if(!comment) throw new UnauthorizedException("comment not found !");
 
         if(comment.author.id !== user.id){
