@@ -43,15 +43,14 @@ export class CommentService {
 
         const post_new = await this.postRepository.findOne({ 
             where : { id : createCommentDto.postId }, 
-            relations: ['author'] 
+            relations: ['author', 'comments'] 
         });
         if(!post_new) throw new NotFoundException("페이지를 찾을 수 없습니다.");
 
         if(post.author.id !== user.id){
             await this.notificationService.notify(
                 postAuthorId,
-                post,
-                post_new.comments,
+                post_new
                 `${user.user_name} 님이 댓글을 남겼습니다 !`
             );
         }
