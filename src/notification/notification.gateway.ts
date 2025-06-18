@@ -40,5 +40,6 @@ export class NotificationGateway implements OnGatewayConnection, OnGatewayDiscon
 
   sendNotification(userId : string, message : string){
     this.server.to(userId).emit('notification', message);
+    console.error(`${userId} :  소켓 보냈음 ~`);
   }
 }
