@@ -25,7 +25,11 @@ export class CommentService {
         const user = await this.userRepository.findOne( { where : { id : user_id } } );
         if(!user) throw new UnauthorizedException('세션 만료 or 존재하지 않는 유저');
 
-        const post = await this.postRepository.findOne( { where : { id : createCommentDto.postId } } );
+        const post = await this.postRepository.findOne({ 
+            where : { id : createCommentDto.postId }, 
+            relations: ['author'] 
+        });
+
         if(!post) throw new NotFoundException("페이지를 찾을 수 없습니다.");
 
         const comment = this.commentRepository.create({
@@ -36,11 +40,13 @@ export class CommentService {
 
         const postAuthorId = post.author.id;
 
-        await this.notificationService.notify(
-            postAuthorId,
-            post,
-            `${user.user_name} 님이 댓글을 남겼습니다 !`
-        );
+        if(post.author.id !== user.id){
+            await this.notificationService.notify(
+                postAuthorId,
+                post,
+                `${user.user_name} 님이 댓글을 남겼습니다 !`
+            );
+        }
 
         return this.commentRepository.save(comment);
     }
