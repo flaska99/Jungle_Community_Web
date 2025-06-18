@@ -48,7 +48,7 @@ export class CommentService {
         if(!post_new) throw new NotFoundException("페이지를 찾을 수 없습니다.");
 
         if(post.author.id !== user.id){
-            await this.notificationService.notify(
+            this.notificationService.notify(
                 postAuthorId,
                 post_new,
                 `${user.user_name} 님이 댓글을 남겼습니다 !`
