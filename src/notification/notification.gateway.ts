@@ -38,8 +38,11 @@ export class NotificationGateway implements OnGatewayConnection, OnGatewayDiscon
     console.log(`client disconnected : ${client.id}`);
   }
 
-  sendNotification(userId : string, message : string){
-    this.server.to(userId).emit('notification', message);
-    console.error(`${userId} :  소켓 보냈음 ~`);
+  sendNotification(userId : string, postId : string, message : string){
+    this.server.to(userId).emit('notification', {
+      message : message, 
+      postId : postId}
+    );
+    console.log(`${userId} :  소켓 보냈음 ~`);
   }
 }
