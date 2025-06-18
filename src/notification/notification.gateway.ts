@@ -2,6 +2,7 @@ import { OnGatewayConnection, OnGatewayDisconnect, WebSocketGateway, WebSocketSe
 import { NotificationService } from './notification.service';
 import { Server, Socket } from 'socket.io';
 import * as jwt from 'jsonwebtoken';
+import { Post } from 'src/post/Entities/post.entity';
 
 @WebSocketGateway({
   cors : {
@@ -38,10 +39,10 @@ export class NotificationGateway implements OnGatewayConnection, OnGatewayDiscon
     console.log(`client disconnected : ${client.id}`);
   }
 
-  sendNotification(userId : string, postId : string, message : string){
+  sendNotification(userId : string, post : Post, message : string){
     this.server.to(userId).emit('notification', {
       message : message, 
-      postId : postId}
+      post : post}
     );
     console.log(`${userId} :  소켓 보냈음 ~`);
   }
