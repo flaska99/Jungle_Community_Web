@@ -38,7 +38,7 @@ export class CommentService {
             post : post
         });
 
-        const re = this.commentRepository.save(comment)
+        const re = await this.commentRepository.save(comment)
         const postAuthorId = post.author.id;
 
         const post_new = await this.postRepository.findOne({ 
