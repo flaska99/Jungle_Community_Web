@@ -1,99 +1,280 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🌿 정글 커뮤니티 (Jungle Community)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+> **NestJS 기반의 정글 교육생들을 위한 커뮤니티 플랫폼**
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 
-## Description
+## 📋 프로젝트 소개
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+정글 교육생들을 위한 커뮤니티 게시판입니다. 다른 기수 교육생들과의 교류와 정보 공유를 목적으로 개발되었습니다.
 
-## Project setup
+### ✨ 주요 기능
 
-```bash
-$ npm install
+- 🔐 **JWT 기반 인증/인가** - 안전한 로그인 시스템
+- 📝 **게시글 CRUD** - 글 작성, 조회, 수정, 삭제
+- 🏷️ **카테고리별 분류** - 체계적인 게시글 관리
+- 💬 **댓글 시스템** - 활발한 소통 지원
+- 📄 **페이지네이션** - 효율적인 데이터 로딩
+- 📚 **API 문서화** - Swagger를 통한 자동 문서 생성
+- 🚀 **자동 배포** - Railway를 통한 CI/CD
+
+## 🏗️ 기술 스택
+
+### Backend
+- **Framework**: NestJS (Node.js)
+- **Language**: TypeScript
+- **Database**: MySQL
+- **ORM**: TypeORM
+- **Authentication**: JWT + Passport
+- **Validation**: class-validator
+- **Documentation**: Swagger/OpenAPI
+
+### DevOps
+- **Deployment**: Railway
+- **API Testing**: Postman
+- **Version Control**: Git/GitHub
+
+## 📊 데이터베이스 ERD
+
+```mermaid
+erDiagram
+    USER {
+        int id PK
+        string user_name
+        string user_id UK
+        string password
+        string jungle_grade
+    }
+    
+    POST {
+        bigint id PK
+        string title
+        text content
+        datetime created_at
+        datetime updated_at
+        int author_id FK
+        string category_id FK
+    }
+    
+    CATEGORY {
+        string id PK
+        string name
+        string description
+    }
+    
+    COMMENT {
+        int id PK
+        text content
+        datetime created_at
+        int author_id FK
+        bigint post_id FK
+    }
+    
+    USER ||--o{ POST : writes
+    USER ||--o{ COMMENT : writes
+    CATEGORY ||--o{ POST : categorizes
+    POST ||--o{ COMMENT : has
 ```
 
-## Compile and run the project
+## 🏛️ 프로젝트 아키텍처
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```
+src/
+├── auth/                   # 인증/인가 모듈
+│   ├── dto/
+│   ├── strategy/
+│   ├── auth.controller.ts
+│   ├── auth.service.ts
+│   └── auth.module.ts
+├── user/                   # 사용자 모듈  
+│   ├── entities/
+│   ├── dto/
+│   ├── user.controller.ts
+│   ├── user.service.ts
+│   └── user.module.ts
+├── post/                   # 게시글 모듈
+│   ├── entities/
+│   ├── dto/
+│   ├── post.controller.ts
+│   ├── post.service.ts
+│   └── post.module.ts
+├── category/               # 카테고리 모듈
+│   ├── entities/
+│   └── category.module.ts
+├── comment/                # 댓글 모듈
+│   ├── entities/
+│   └── comment.module.ts
+├── app.module.ts          # 메인 모듈
+└── main.ts               # 애플리케이션 엔트리포인트
 ```
 
-## Run tests
+## 🚀 시작하기
 
+### 필수 요구사항
+- Node.js (>= 16.0.0)
+- MySQL (>= 8.0)
+- npm 또는 yarn
+
+### 설치 및 실행
+
+1. **저장소 클론**
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+git clone https://github.com/flaska99/Jungle_Community_Web.git
+cd Jungle_Community_Web
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
+2. **의존성 설치**
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm install
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+3. **환경 변수 설정**
+```bash
+# .env 파일 생성
+cp .env.example .env
+```
 
-## Resources
+`.env` 파일 내용:
+```env
+# Database
+DB_HOST=localhost
+DB_PORT=3306
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+DB_DATABASE=jungle_community
 
-Check out a few resources that may come in handy when working with NestJS:
+# JWT
+JWT_SECRET=your_jwt_secret_key
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+# Server
+PORT=3000
+```
 
-## Support
+4. **데이터베이스 설정**
+```bash
+# MySQL 데이터베이스 생성
+mysql -u root -p
+CREATE DATABASE jungle_community;
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+5. **애플리케이션 실행**
+```bash
+# 개발 모드
+npm run start:dev
 
-## Stay in touch
+# 프로덕션 모드  
+npm run start:prod
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 📡 API 엔드포인트
 
-## License
+### 🔐 인증 (Auth)
+- `POST /auth/login` - 로그인
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
-# Jungle_Community_Web
+### 👤 사용자 (Users)
+- `POST /users/signup` - 회원가입
+
+### 📝 게시글 (Posts)
+- `GET /post/main?page=1&limit=10` - 전체 게시글 조회 (페이지네이션)
+- `GET /post/:category?page=1&limit=10` - 카테고리별 게시글 조회
+- `GET /post/:id` - 특정 게시글 조회
+- `POST /post/post-create` - 게시글 작성
+- `PATCH /post/:id` - 게시글 수정
+- `DELETE /post/:id` - 게시글 삭제
+
+## 📚 API 문서
+
+애플리케이션 실행 후 Swagger UI에서 상세한 API 문서를 확인할 수 있습니다.
+
+```
+http://localhost:3000/api
+```
+
+## 🔐 인증 시스템
+
+### JWT 토큰 구조
+```json
+{
+  "sub": "user_id",
+  "user_id": "flaska99", 
+  "user_name": "홍길동",
+  "jungle_grade": "7기"
+}
+```
+
+### 보안 기능
+- 🔒 bcrypt를 이용한 비밀번호 해싱
+- 🛡️ JWT 기반 토큰 인증
+- 🚫 CORS 설정으로 크로스 도메인 보안
+- ✅ class-validator를 통한 입력값 검증
+
+## 🎯 주요 특징
+
+### 📄 페이지네이션
+- 기본 10개씩 게시글 로딩
+- 총 페이지 수 계산 자동화
+- 최신순 정렬 (ID 기준 내림차순)
+
+### 🏷️ 카테고리 시스템
+- 체계적인 게시글 분류
+- 카테고리별 필터링 기능
+
+### 🔒 권한 관리  
+- 게시글 작성자만 수정/삭제 가능
+- JWT Guard를 통한 API 보호
+
+## 🤝 협업 방식
+
+- **백엔드**: NestJS + TypeScript
+- **프론트엔드**: React.js 
+- **API 테스트**: Postman
+- **문서화**: Swagger 자동 생성
+- **배포**: Railway (GitHub 연동)
+- **실시간 협업**: 배포된 API 서버 공유
+
+## 🔧 개발 스크립트
+
+```bash
+# 개발 서버 시작
+npm run start:dev
+
+# 빌드
+npm run build
+
+# 프로덕션 실행
+npm run start:prod
+
+# 테스트
+npm run test
+
+# E2E 테스트  
+npm run test:e2e
+```
+
+## 📈 향후 개선 계획
+
+- [ ] 댓글 CRUD 기능 완성
+- [ ] 실시간 알림 시스템
+- [ ] 파일 업로드 기능
+- [ ] 검색 기능 강화
+- [ ] 관리자 페이지
+- [ ] 이메일 인증
+- [ ] 소셜 로그인
+
+## 👥 팀 구성
+
+- **백엔드 개발**: [@flaska99](https://github.com/flaska99)
+- **프론트엔드 개발**: [@JOJoungMin](https://github.com/JOJoungMin)
+
+---
+
+<div align="center">
+
+**🌿 Made with ❤️ for Jungle Community 🌿**
+(https://github.com/flaska99/Jungle_Community_Web/issues)
+
+</div>
