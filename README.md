@@ -119,56 +119,7 @@ src/
 - MySQL (>= 8.0)
 - npm 또는 yarn
 
-### 설치 및 실행
 
-1. **저장소 클론**
-```bash
-git clone https://github.com/flaska99/Jungle_Community_Web.git
-cd Jungle_Community_Web
-```
-
-2. **의존성 설치**
-```bash
-npm install
-```
-
-3. **환경 변수 설정**
-```bash
-# .env 파일 생성
-cp .env.example .env
-```
-
-`.env` 파일 내용:
-```env
-# Database
-DB_HOST=localhost
-DB_PORT=3306
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
-DB_DATABASE=jungle_community
-
-# JWT
-JWT_SECRET=your_jwt_secret_key
-
-# Server
-PORT=3000
-```
-
-4. **데이터베이스 설정**
-```bash
-# MySQL 데이터베이스 생성
-mysql -u root -p
-CREATE DATABASE jungle_community;
-```
-
-5. **애플리케이션 실행**
-```bash
-# 개발 모드
-npm run start:dev
-
-# 프로덕션 모드  
-npm run start:prod
-```
 
 ## 📡 API 엔드포인트
 
